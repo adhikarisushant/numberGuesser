@@ -28,12 +28,7 @@ const game = document.querySelector('#game'),
         // Check if won
         if(guess === winningNum){
             // Game Over - won
-            // disable input
-            guessInput.disabled = true;
-            // Change border color
-            guessInput.style.borderColor = 'green';
-            // Set Message
-            setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
+            gameOver(true, `${winningNum} is correct, YOU WIN!`);
 
         } else {
             // wrong number
@@ -42,12 +37,7 @@ const game = document.querySelector('#game'),
             if(guessesLeft === 0) {
                 // Game over - lost
 
-                 // disable input
-             guessInput.disabled = true;
-             // Change border color
-             guessInput.style.borderColor = 'red';
-             // Set Message
-             setMessage(`Game Over, you lost. The correct number was ${winningNum}`, 'red');
+                 gameOver(false, `Game Over, you lost. The correct number was ${winningNum}`)
             } else {
                 // Game continue - answer wrong
 
@@ -64,6 +54,21 @@ const game = document.querySelector('#game'),
         }
 
     });
+
+    // Game Over
+    function gameOver(won, msg) {
+        let color;
+        won === true ? color = 'green' : color = 'red';
+
+        // disable input
+        guessInput.disabled = true;
+        // Change border color
+        guessInput.style.borderColor = color;
+        // Set text color
+        message.style.color = color;
+        // Set Message
+        setMessage(msg);
+    }
 
     // Set Message
     function setMessage(msg, color) {
