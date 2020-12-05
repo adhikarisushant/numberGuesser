@@ -2,7 +2,7 @@
 let min = 1,
     max = 10,
     winningNum = 2,
-    guessLeft = 3;
+    guessesLeft = 3;
 
     // UI Elements
 const game = document.querySelector('#game'),
@@ -27,14 +27,39 @@ const game = document.querySelector('#game'),
 
         // Check if won
         if(guess === winningNum){
+            // Game Over - won
             // disable input
             guessInput.disabled = true;
             // Change border color
             guessInput.style.borderColor = 'green';
             // Set Message
-            setMessage(`${winningNum} is correct, YOU WIN!`, 'green')
+            setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
 
         } else {
+            // wrong number
+            guessesLeft -= 1;
+
+            if(guessesLeft === 0) {
+                // Game over - lost
+
+                 // disable input
+             guessInput.disabled = true;
+             // Change border color
+             guessInput.style.borderColor = 'red';
+             // Set Message
+             setMessage(`Game Over, you lost. The correct number was ${winningNum}`, 'red');
+            } else {
+                // Game continue - answer wrong
+
+                // change border color
+                guessInput.style.borderColor = 'red';
+
+                // Clear Input
+                guessInput.value = '';
+
+                // Tell user its the wrong number
+                setMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red');
+            }
  
         }
 
